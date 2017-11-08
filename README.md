@@ -19,7 +19,7 @@
  Add it in your **module** build.gradle at the end of dependencies:
  ```
  dependencies {
- 		compile 'com.github.wufengfeilong:MyLib:1.3'
+ 		compile 'com.github.wufengfeilong:MyLib:1.4'
  	}
  ```
  **2.Usage**
