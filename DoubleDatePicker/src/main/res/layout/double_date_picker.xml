@@ -4,24 +4,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal">
-        <DatePicker
-                android:id="@+id/start_dp"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </DatePicker>
-        <DatePicker
-                android:id="@+id/end_dp"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </DatePicker>
-    </LinearLayout>
+    <android.support.v4.view.ViewPager
+            android:id="@+id/date_vp"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,13 +17,14 @@
                 android:id="@+id/cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-        android:text="取消"/>
+                android:onClick="cancelClick"
+                android:text="取消"/>
         <Button
                 android:id="@+id/confirm_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="confirmClick"
                 android:text="确定"/>
     </LinearLayout>
-
 
 </LinearLayout>

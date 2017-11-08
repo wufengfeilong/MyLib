@@ -2,35 +2,81 @@ package lohas.ddp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class DoubleDatePicker extends android.support.v7.widget.AppCompatEditText{
-    String[] dates = new String[2];
+
+    private List<View> list;
+    private String[] dates = new String[2];
+
+    public DoubleDatePicker(Context context) {
+        super(context);
+    }
+
     public DoubleDatePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     public boolean performClick() {
-        showDialog();
+        hideSoftKeyboard();
+        showViewPagerDialog();
         return true;
     }
 
-    private void showDialog() {
+    private void hideSoftKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    private void showViewPagerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.double_date_picker,null);
         builder.setView(layout);
         final AlertDialog dialog = builder.create();
-        DatePicker sDP = layout.findViewById(R.id.start_dp);
-        DatePicker eDP = layout.findViewById(R.id.end_dp);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view1 = inflater.inflate(R.layout.single_date_picker, null);
+        DatePicker sDP = view1.findViewById(R.id.dp);
+        View view2 = inflater.inflate(R.layout.single_date_picker,null);
+        DatePicker eDP = view2.findViewById(R.id.dp);
+        ViewPager vp = layout.findViewById(R.id.date_vp);
+        list = new ArrayList<>();
+        list.add(view1);
+        list.add(view2);
+        PagerAdapter pa = new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView(list.get(position));
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                container.addView(list.get(position));
+                return list.get(position);
+            }
+        };
+        vp.setAdapter(pa);
         Button cBtn = layout.findViewById(R.id.cancel_btn);
         Button sBtn = layout.findViewById(R.id.confirm_btn);
         Calendar c = Calendar.getInstance();
@@ -75,4 +121,6 @@ public class DoubleDatePicker extends android.support.v7.widget.AppCompatEditTex
     public String getEndDate(){
         return dates[1];
     }
+
+
 }
