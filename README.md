@@ -1,5 +1,7 @@
  # DoubleDatePicker
  
+ ![image](https://github.com/wufengfeilong/MyLib/blob/master/example.gif)
+ 
  **1.Import** 
  
  Step 1. Add the JitPack repository to your build file.
