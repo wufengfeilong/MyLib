@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DoubleDatePicker extends android.support.v7.widget.AppCompatEditText{
 
-    private List<View> list;
+    private List<View> viewList;
     private String[] dates = new String[2];
 
     public DoubleDatePicker(Context context) {
@@ -51,13 +51,13 @@ public class DoubleDatePicker extends android.support.v7.widget.AppCompatEditTex
         View view2 = inflater.inflate(R.layout.single_date_picker,null);
         DatePicker eDP = view2.findViewById(R.id.dp);
         ViewPager vp = layout.findViewById(R.id.date_vp);
-        list = new ArrayList<>();
-        list.add(view1);
-        list.add(view2);
+        viewList = new ArrayList<>();
+        viewList.add(view1);
+        viewList.add(view2);
         PagerAdapter pa = new PagerAdapter() {
             @Override
             public int getCount() {
-                return list.size();
+                return viewList.size();
             }
 
             @Override
@@ -67,13 +67,25 @@ public class DoubleDatePicker extends android.support.v7.widget.AppCompatEditTex
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView(list.get(position));
+                container.removeView(viewList.get(position));
             }
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                container.addView(list.get(position));
-                return list.get(position);
+                container.addView(viewList.get(position));
+                return viewList.get(position);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position) {
+                    case 0:
+                        return "开始时间";
+                    case 1:
+                        return "结束时间";
+                    default:
+                        return "";
+                }
             }
         };
         vp.setAdapter(pa);
