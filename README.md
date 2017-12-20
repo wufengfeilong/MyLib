@@ -1,4 +1,5 @@
  # DoubleDatePicker
+ [![Release](https://jitpack.io/v/wufengfeilong/MyLib.svg)](https://jitpack.io/#wufengfeilong/MyLib)
  
  ![image](https://github.com/wufengfeilong/MyLib/blob/master/example.gif)
  
